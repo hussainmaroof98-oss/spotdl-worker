@@ -18,9 +18,11 @@ def download_song():
     os.makedirs("downloads", exist_ok=True)
     result = subprocess.run(
     ["spotdl", "download", spotify_url, "--output", "downloads",
-     "--threads", "1", "--cookie-file", "/etc/secrets/cookies.txt"],
+     "--threads", "1", "--cookie-file", "/etc/secrets/cookies.txt",
+     "--bitrate", "96k"],
     capture_output=True, text=True
 )
+
 
     return jsonify({
         "status": "done" if result.returncode == 0 else "error",
