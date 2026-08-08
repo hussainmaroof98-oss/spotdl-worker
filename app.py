@@ -19,7 +19,8 @@ def download_song():
     result = subprocess.run(
     ["spotdl", "download", spotify_url, "--output", "downloads",
      "--threads", "1", "--cookie-file", "/etc/secrets/cookies.txt",
-     "--bitrate", "disable", "--format", "opus", "--log-level", "DEBUG"],
+     "--bitrate", "disable", "--format", "opus", "--log-level", "DEBUG",
+     "--yt-dlp-args", "--extractor-args youtube:player_client=android"],
     capture_output=True, text=True
 )
 
