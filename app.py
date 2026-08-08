@@ -19,15 +19,14 @@ def download_song():
     result = subprocess.run(
     ["spotdl", "download", spotify_url, "--output", "downloads",
      "--threads", "1", "--cookie-file", "/etc/secrets/cookies.txt",
-     "--bitrate", "disable", "--format", "opus"],
+     "--bitrate", "disable", "--format", "opus", "--log-level", "DEBUG"],
     capture_output=True, text=True
 )
 
-
     return jsonify({
-        "status": "done" if result.returncode == 0 else "error",
-        "log": (result.stdout + result.stderr)[-500:]
-    })
+    "status": "done" if result.returncode == 0 else "error",
+    "log": (result.stdout + result.stderr)[-3000:]
+})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
