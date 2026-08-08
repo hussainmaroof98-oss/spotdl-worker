@@ -19,7 +19,7 @@ def download_song():
     result = subprocess.run(
     ["spotdl", "download", spotify_url, "--output", "downloads",
      "--threads", "1", "--cookie-file", "/etc/secrets/cookies.txt",
-     "--bitrate", "96k"],
+     "--bitrate", "disable", "--format", "opus"],
     capture_output=True, text=True
 )
 
