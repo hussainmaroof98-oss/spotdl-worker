@@ -17,17 +17,14 @@ def download_song():
 
     os.makedirs("downloads", exist_ok=True)
     result = subprocess.run(
-    ["spotdl", "download", spotify_url, "--output", "downloads",
-     "--threads", "1", "--cookie-file", "/etc/secrets/cookies.txt",
-     "--bitrate", "disable", "--format", "opus", "--log-level", "DEBUG",
-     "--yt-dlp-args", "--extractor-args youtube:player_client=android"],
-    capture_output=True, text=True
-)
+        ["spotdl", "download", spotify_url, "--output", "downloads", "--threads", "2"],
+        capture_output=True, text=True
+    )
 
     return jsonify({
-    "status": "done" if result.returncode == 0 else "error",
-    "log": (result.stdout + result.stderr)[-3000:]
-})
+        "status": "done" if result.returncode == 0 else "error",
+        "log": (result.stdout + result.stderr)[-1000:]
+    })
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), threaded=True)
